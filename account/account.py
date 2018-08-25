@@ -1,5 +1,6 @@
+#Base class
 class Account:
-
+    #Constructor function
     def __init__(self,filepath):
         self.filepath = filepath
         with open(filepath, 'r') as file:
@@ -15,10 +16,24 @@ class Account:
         with open(self.filepath, 'w') as file:
             file.write(str(self.balance))
 
-account = Account("account/balance.txt")
-print(account.balance)
-account.withdraw(100)
-print(account.balance)
-account.deposit(200)
-print(account.balance)
-account.commit()
+# account = Account("account/balance.txt")
+# print(account.balance)
+# account.withdraw(100)
+# print(account.balance)
+# account.deposit(200)
+# print(account.balance)
+# account.commit()
+
+#Sub class
+class Checking(Account):
+
+    def __init__(self, filepath):
+        Account.__init__(self, filepath)
+
+    def transfer(self, amount):
+        self.balance = self.balance - amount
+
+checking = Checking("account/balance.txt")
+checking.transfer(50)
+print(checking.balance)
+checking.commit()
